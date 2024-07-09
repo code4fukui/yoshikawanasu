@@ -3,6 +3,7 @@ import { HTMLParser } from "https://js.sabae.cc/HTMLParser.js";
 import { CSV } from "https://code4fukui.github.io/CSV/CSV.js";
 
 const url = "https://www.city.sabae.fukui.jp/kanko_sangyo/sangyo/noringyoshinko/sabae_yasai/NoSeisaku0120230412.html";
+const baseurl = "https://www.city.sabae.fukui.jp";
 
 const html = await fetchOrLoad(url);
 const dom = HTMLParser.parse(html);
@@ -52,7 +53,7 @@ for (let i = 0; i < divs.length; i++) {
       data.url = "";
     } else {
       const link = adiv.getAttribute("href");
-      data.url = link;
+      data.url = link.startsWith("http://") || link.startsWith("https://") ? link : baseurl + link;
     }
     //console.log(adiv);
     
